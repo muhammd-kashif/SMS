@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart College — Figma design</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,640&family=Noto+Nastaliq+Urdu:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:#0f172a; --muted:#64748b; --paper:#f4f7fb; --card:#fff; --line:#e6edf5;
+    --sidebar:#0E2A4A; --primary:#1B4F9C; --secondary:#F39200; --ok:#166534; --warn:#a16207; --danger:#9f1239;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Source Sans 3", "Segoe UI", sans-serif; color: var(--ink); background: #1e1e1e; display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+  nav.pages { background: #2c2c2c; color: #ececec; padding: 18px 12px 28px; position: sticky; top: 0; height: 100vh; overflow: auto; }
+  nav.pages h1 { font-size: 15px; margin: 0 8px 4px; }
+  nav.pages p { margin: 0 8px 14px; color: #a3a3a3; font-size: 12px; line-height: 1.4; }
+  nav.pages button { display: block; width: 100%; text-align: left; background: transparent; color: #d4d4d4; border: 0; border-radius: 8px; padding: 8px 10px; cursor: pointer; font: inherit; font-size: 13px; }
+  nav.pages button.on { background: #0E2A4A; color: #fff; }
+  nav.pages button:hover { background: #3a3a3a; }
+  nav.pages .grp { margin: 14px 8px 6px; color: #8a8a8a; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+  .stage { padding: 28px; overflow: auto; }
+  .label { color: #cfcfcf; font-size: 13px; margin: 0 0 10px; }
+  .art { width: 1280px; height: 800px; background: var(--paper); border-radius: 8px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.35); position: relative; }
+  .shell { display: grid; grid-template-columns: 232px 1fr; height: 100%; }
+  .side { background: linear-gradient(180deg, #12345c, var(--sidebar)); color: #e7eef8; padding: 14px 10px; display: flex; flex-direction: column; gap: 8px; }
+  .logo { background: #fff; color: var(--primary); border-radius: 12px; height: 52px; display: grid; place-items: center; font-family: Fraunces, serif; font-weight: 640; }
+  .who { display: flex; justify-content: space-between; font-size: 12px; padding: 0 4px; }
+  .who span { background: rgba(255,255,255,.12); border-radius: 99px; padding: 2px 8px; }
+  .sec { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: #9fb4cc; margin: 8px 6px 2px; }
+  .link { padding: 7px 8px; border-radius: 8px; font-size: 13px; color: #dbe7f5; }
+  .link.on { background: rgba(255,255,255,.12); box-shadow: inset 3px 0 0 var(--secondary); color: #fff; }
+  .top { height: 64px; background: #fffdf8; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 12px; padding: 0 18px; }
+  .search { flex: 1; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; color: var(--muted); font-size: 13px; }
+  .pill { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 4px; display: flex; font-size: 12px; }
+  .pill b { background: var(--secondary); color: #fff; border-radius: 999px; padding: 4px 8px; }
+  .pill span { padding: 4px 8px; color: var(--muted); }
+  .avatar { width: 32px; height: 32px; border-radius: 10px; background: var(--primary); color: #fff; display: grid; place-items: center; font-size: 13px; }
+  .page { padding: 18px 20px; height: calc(100% - 64px); overflow: hidden; }
+  h2 { margin: 0; font-size: 26px; letter-spacing: -.03em; }
+  .sub { margin: 2px 0 12px; color: var(--muted); font-size: 14px; }
+  .row { display: flex; gap: 10px; align-items: center; }
+  .grow { flex: 1; }
+  .btn { background: var(--primary); color: #fff; border: 0; border-radius: 12px; padding: 8px 12px; font-weight: 700; font-size: 13px; }
+  .ghost { background: #fff; color: var(--primary); border: 1px solid #d5e2f2; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 14px; box-shadow: 0 8px 24px rgba(15,23,42,.04); }
+  .kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 12px; }
+  .kpi span { display: block; color: var(--muted); font-size: 12px; }
+  .kpi strong { font-size: 22px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .bars { height: 120px; display: flex; align-items: end; gap: 8px; }
+  .bars i { flex: 1; background: #8eafd8; border-radius: 6px 6px 0 0; display: block; }
+  .bars.fee i { background: #f6c27a; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 8px; border-bottom: 1px solid var(--line); }
+  td { padding: 8px; border-bottom: 1px solid #f1f5f9; }
+  .badge { border-radius: 99px; padding: 2px 8px; font-size: 12px; background: #e8f6ee; color: var(--ok); }
+  .warn { background: #fef3c7; color: var(--warn); }
+  .bad { background: #ffe4e6; color: var(--danger); }
+  .blue { background: #e8f0fb; color: var(--primary); }
+  .filters { display: grid; grid-template-columns: 1.4fr repeat(3, .8fr); gap: 8px; margin-bottom: 10px; }
+  .field { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; color: var(--muted); font-size: 13px; }
+  .photo { width: 36px; height: 36px; border-radius: 8px; background: #dbe7f5; display: grid; place-items: center; color: var(--primary); font-weight: 700; }
+  .hero { display: flex; gap: 16px; align-items: center; margin-bottom: 12px; }
+  .face { width: 84px; height: 84px; border-radius: 18px; background: linear-gradient(160deg, #dbe7f5, #8eafd8); display: grid; place-items: center; font-size: 28px; color: var(--primary); font-weight: 700; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+  .tabs span { padding: 6px 10px; border-radius: 999px; background: #fff; border: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+  .tabs span.on { background: var(--primary); color: #fff; border-color: var(--primary); }
+  .form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .form label { display: grid; gap: 4px; font-size: 12px; color: var(--muted); }
+  .form .wide { grid-column: 1 / -1; }
+  input, select { border: 1px solid var(--line); border-radius: 10px; padding: 8px 10px; background: #fff; }
+  .scan { display: grid; grid-template-columns: 1.1fr .9fr; gap: 12px; height: calc(100% - 70px); }
+  .camera { background: #0b1c33; border-radius: 18px; min-height: 460px; position: relative; display: grid; place-items: center; color: #fff; }
+  .oval { width: 220px; height: 280px; border: 3px solid var(--secondary); border-radius: 50%; }
+  .status { position: absolute; left: 16px; right: 16px; bottom: 16px; background: rgba(255,255,255,.94); color: var(--ink); border-radius: 12px; padding: 10px 12px; }
+  .steps span { display: block; padding: 6px 0; font-size: 13px; color: var(--muted); }
+  .steps span.on { color: var(--ok); font-weight: 700; }
+  .login { display: grid; grid-template-columns: 1.1fr .9fr; height: 100%; }
+  .brand { background: linear-gradient(165deg, #0E2A4A, #1B4F9C 62%, #F39200); color: #faf7f2; padding: 48px; display: flex; flex-direction: column; justify-content: space-between; }
+  .brand h2 { font-family: Fraunces, serif; font-size: 48px; line-height: .95; font-weight: 640; }
+  .brand li { margin: 8px 0; }
+  .panel { display: grid; place-items: center; }
+  .login-card { width: 380px; background: #fff; border-radius: 24px; padding: 24px; border: 1px solid var(--line); display: grid; gap: 10px; }
+  .swatches { display: flex; gap: 8px; flex-wrap: wrap; }
+  .sw { width: 92px; }
+  .sw i { display: block; height: 48px; border-radius: 10px; }
+  .sw small { color: var(--muted); }
+  .rtl { direction: rtl; font-family: "Noto Nastaliq Urdu", "Source Sans 3", serif; }
+  .rtl .side { text-align: right; }
+  .rtl .link.on { box-shadow: inset -3px 0 0 var(--secondary); }
+  .note { font-size: 12px; color: var(--muted); }
+</style>
+</head>
+<body>
+<nav class="pages" id="pages">
+  <h1>Smart College</h1>
+  <p>Figma design board for every feature already in the app. Click a frame.</p>
+</nav>
+<div class="stage">
+  <p class="label" id="label"></p>
+  <div class="art" id="board"></div>
+</div>
+<script>
+const nav = (on) => {
+  const items = [
+    ['Overview', [['Dashboard', 'dashboard']]],
+    ['Academic', [['Students', 'students'], ['Teachers', 'teachers'], ['Classes', 'classes'], ['Timetable', 'timetable']]],
+    ['Attendance', [['Face attendance', 'scan'], ['Face registration', 'register'], ['Attendance', 'attendance']]],
+    ['Finance', [['Fees', 'fees']]],
+    ['Examination', [['Exams', 'exams'], ['Results', 'results']]],
+    ['Student services', [['Leaves', 'leaves'], ['Homework', 'homework'], ['Assignments', 'assignments'], ['Announcements', 'announcements']]],
+    ['Resources', [['Reports', 'reports'], ['Settings', 'settings']]],
+  ];
+  return `<div class="logo">CMS</div><div class="who"><strong>Crescent Model School</strong><span>Admin</span></div>` +
+    items.map(([sec, links]) => `<div class="sec">${sec}</div>` + links.map(([name, id]) => `<div class="link${id === on ? ' on' : ''}">${name}</div>`).join('')).join('');
+};
+const topbar = (q = 'Search students, teachers, fees') => `<header class="top"><div class="search">${q}</div><div class="pill"><b>English</b><span>اردو</span></div><div class="avatar">A</div></header>`;
+const app = (active, title, sub, body) => `<div class="shell"><aside class="side">${nav(active)}</aside><section><div>${topbar()}</div><div class="page"><div class="row"><div class="grow"><h2>${title}</h2><p class="sub">${sub}</p></div></div>${body}</div></section></div>`;
+const badge = (t, k='') => `<span class="badge ${k}">${t}</span>`;
+const table = (heads, rows) => `<table><thead><tr>${heads.map(h => `<th>${h}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+
+const screens = [
+  ['system', '00  Design system', `<div style="padding:28px">
+    <h2>Smart College design system</h2>
+    <p class="sub">Desktop frame 1280 × 800. Sidebar 232. These tokens match the running app.</p>
+    <div class="swatches">
+      ${[['#0E2A4A','Sidebar'],['#1B4F9C','Primary'],['#F39200','Secondary'],['#F5A623','Accent'],['#F4F7FB','Paper'],['#166534','Success'],['#A16207','Warning'],['#9F1239','Danger']].map(([c,n]) => `<div class="sw"><i style="background:${c}"></i><small>${n}<br>${c}</small></div>`).join('')}
+    </div>
+    <div class="row" style="margin-top:18px"><button class="btn">Primary</button><button class="btn ghost">Secondary</button>${badge('Registered')}${badge('Late','warn')}${badge('Absent','bad')}${badge('Active','blue')}</div>
+    <p class="note" style="margin-top:18px">Type: Source Sans 3 for English. Fraunces for the login title. Noto Nastaliq Urdu when the language is Urdu. Buttons radius 12. Cards radius 16. Urdu layout is right to left.</p>
+  </div>`],
+  ['login', '01  Login', `<div class="login"><div class="brand"><div class="logo" style="width:160px">CMS</div><div><p>CRESCENT MODEL SCHOOL</p><h2>Attendance, fees, and exams in one place.</h2><ul><li>Face attendance after a live match</li><li>Fees, vouchers, and receipts</li><li>English and Urdu</li></ul></div><div>Session 2026–2027</div></div><div class="panel"><form class="login-card"><h2>Sign in</h2><label>Email<input value="admin@smartcollege.test"></label><label>Password<input type="password" value="password"></label><button class="btn">Sign in</button><p class="note">Demo password College@123</p></form></div></div>`],
+  ['dashboard', '02  Dashboard', app('dashboard', 'Dashboard', 'Today at Crescent Model School', `
+    <div class="card" style="margin-bottom:12px"><strong>Quick actions</strong><div class="row" style="margin-top:8px"><button class="btn">Add student</button><button class="btn ghost">Register face</button><button class="btn ghost">Start attendance</button><button class="btn">Collect fee</button></div></div>
+    <div class="kpis">${[['Students','200'],['Teachers','15'],['Present','168'],['Late','9'],['Fee pending','PKR 842,000'],['Exams','2']].map(([a,b]) => `<article class="card kpi"><span>${a}</span><strong>${b}</strong></article>`).join('')}</div>
+    <div class="grid2"><article class="card"><strong>Attendance, 7 days</strong><div class="bars">${[70,80,64,90,76,88,84].map(h => `<i style="height:${h}%"></i>`).join('')}</div></article><article class="card"><strong>Fee collection</strong><div class="bars fee">${[40,55,48,70,62,80].map(h => `<i style="height:${h}%"></i>`).join('')}</div></article></div>`)],
+  ['students', '03  Students', app('students', 'Students', 'Search by name, ID, roll, or phone', `
+    <div class="row" style="justify-content:flex-end;margin-top:-36px"><button class="btn">Add student</button></div>
+    <div class="filters"><div class="field">Search</div><div class="field">Class</div><div class="field">Section</div><div class="field">Status</div></div>
+    <div class="card">${table(['Photo','Name','ID','Roll','Class','Face','Status'], [
+      ['<div class="photo">ع</div>','عدنان','STU-00201','05A-12','Class 5 A', badge('Registered'), badge('Active','blue')],
+      ['<div class="photo">م</div>','محمد خان','STU-00002','01A-02','Class 1 A', badge('Registered'), badge('Active','blue')],
+      ['<div class="photo">ع</div>','عائشہ خان','STU-00001','01A-01','Class 1 A', badge('Missing','bad'), badge('Active','blue')],
+    ])}</div>`)],
+  ['profile-student', '04  Student profile', app('students', 'عدنان', 'STU-00201 · Class 5 — A', `
+    <div class="card hero"><div class="face">ع</div><div><h2 style="font-size:22px">عدنان</h2><p class="sub">STU-00201 · Class 5 — A</p>${badge('Active','blue')} ${badge('Registered')}</div></div>
+    <div class="tabs"><span class="on">Overview</span><span>Attendance</span><span>Fees</span><span>Exams</span><span>Leave</span><span>Documents</span></div>
+    <div class="grid2"><article class="card"><strong>Personal</strong><p>Date of birth · 12 Mar 2014<br>Phone · 0300 1234567<br>Address · House 18, Model Town, Lahore</p></article><article class="card"><strong>Academic</strong><p>Class 5 · Section A<br>Roll 05A-12<br>Attendance 94%</p><p>The portrait is the face saved for this student.</p></article></div>`)],
+  ['student-form', '05  Add student', app('students', 'Add student', 'The account can sign in after the record is saved', `
+    <div class="card form"><label>Name<input value="Adnan"></label><label>Email<input value="adnan@smartcollege.test"></label><label>Roll<input value="05A-12"></label><label>Class<select><option>Class 5</option></select></label><label>Section<select><option>A</option></select></label><label>Father name<input value="Tariq Malik"></label><label class="wide">Address<input value="House 18, Model Town, Lahore"></label><label>Photo<input value="Choose file"></label><div><button class="btn">Save</button></div></div>`)],
+  ['teachers', '06  Teachers', app('teachers', 'Teachers', 'Employee code, subject, salary, and face', `
+    <div class="card">${table(['Photo','Name','Code','Role','Classes','Face','Status'], [
+      ['<div class="photo">ص</div>','صائمہ اقبال','TCH-0001','Senior Teacher','Class 5 · English', badge('Missing','bad'), badge('Active','blue')],
+      ['<div class="photo">ط</div>','طارق ملک','TCH-0002','Teacher','Class 3 · Mathematics', badge('Missing','bad'), badge('Inactive','warn')],
+    ])}</div>`)],
+  ['classes', '07  Classes', app('classes', 'Classes', 'Classes, sections, subjects, and the session', `
+    <div class="grid2"><article class="card"><strong>Class 5</strong><p>Sections A and B · 40 students</p><button class="btn ghost">Add section</button></article><article class="card"><strong>Subjects</strong><p>English, Urdu, Mathematics, General Science, Islamiat, Computer</p></article></div>`)],
+  ['scan', '08  Face attendance', app('scan', 'Face attendance', 'Attendance is marked only after the live face matches a saved face', `
+    <div class="scan"><div class="camera"><div class="oval"></div><div class="status"><strong>Face verified</strong><br>عدنان · STU-00201 · Present · 08:02 AM</div></div><div class="card"><strong>Today</strong><p>Present 168 · Late 9 · Absent 14 · Leave 3</p><p>${badge('Present')} عدنان · 08:02</p><p class="note">A different face stays unrecognized and does not mark this person.</p></div></div>`)],
+  ['register', '09  Face registration', app('register', 'Face registration', 'Five views, then Save this face', `
+    <div class="scan"><div class="camera"><div class="oval"></div><div class="status">Five samples captured. Press save to register this face.</div></div><div class="card"><label>Person<select><option>Student</option></select></label><label>Record<select><option>عدنان · STU-00201</option></select></label><div class="steps"><span class="on">1. Look straight</span><span class="on">2. Turn slightly left</span><span class="on">3. Turn slightly right</span><span class="on">4. Tilt slightly up</span><span class="on">5. Tilt slightly down</span></div><button class="btn">Save this face</button> <button class="btn ghost">Start again</button></div></div>`)],
+  ['attendance', '10  Attendance', app('attendance', 'Student attendance', 'October 2026', `
+    <div class="card">${table(['Name','1','2','3','4','5'], [
+      ['عدنان', badge('P'), badge('P'), badge('L','warn'), badge('P'), badge('A','bad')],
+      ['محمد خان', badge('P'), badge('P'), badge('P'), badge('Leave','blue'), badge('P')],
+    ])}<p class="note">Close the day to mark anyone still empty as Absent, or Leave when leave is approved. Arrival by 08:15 is Present.</p></div>`)],
+  ['fees', '11  Fees', app('fees', 'Student fees', 'Vouchers, collection, and pending amounts', `
+    <div class="tabs"><span>Structure</span><span class="on">Student fees</span><span>Collect</span><span>Voucher</span><span>Payments</span><span>Defaulters</span></div>
+    <div class="kpis" style="grid-template-columns:repeat(3,1fr)">${[['Total','PKR 1,240,000'],['Paid','PKR 398,000'],['Pending','PKR 842,000']].map(([a,b]) => `<article class="card kpi"><span>${a}</span><strong>${b}</strong></article>`).join('')}</div>
+    <div class="card">${table(['Student','Fee','Due','Amount','Pending','Status'], [
+      ['عدنان','Monthly Tuition','05 Oct','PKR 8,500','PKR 0', badge('Paid')],
+      ['عائشہ خان','Monthly Tuition','05 Oct','PKR 8,500','PKR 8,500', badge('Overdue','bad')],
+    ])}</div>`)],
+  ['collect', '12  Collect fee', app('fees', 'Collect fee', 'Cash, bank, online, or other', `
+    <div class="card form"><label>Student<select><option>عدنان · STU-00201</option></select></label><label>Voucher<select><option>October tuition · PKR 8,500</option></select></label><label>Amount<input value="8500"></label><label>Method<select><option>Cash</option></select></label><div><button class="btn">Record payment</button> <button class="btn ghost">Print receipt</button></div></div>`)],
+  ['exams', '13  Exams', app('exams', 'Examinations', 'Date sheet, marks, and publish', `
+    <div class="tabs"><span class="on">Exams</span><span>Schedule</span><span>Marks</span><span>Results</span></div>
+    <div class="card">${table(['Exam','Class','Starts','Status',''], [
+      ['Mid-Term Examination 2026','Class 5','12 Oct', badge('Published','blue'), '<button class="btn ghost">Marks</button>'],
+      ['September Monthly Test','Class 5','20 Sep', badge('Published','blue'), '<button class="btn ghost">Report card</button>'],
+    ])}</div>`)],
+  ['results', '14  Results', app('results', 'Results', 'Visible to families after the exam is published', `
+    <div class="card">${table(['Student','Exam','Obtained','Percent','Grade','Result'], [
+      ['عدنان','Mid-Term','412 / 500','82.4','A', badge('Pass')],
+      ['محمد خان','Mid-Term','288 / 500','57.6','C', badge('Pass')],
+    ])}</div>`)],
+  ['leaves', '15  Leaves', app('leaves', 'Leaves', 'Approve a request before the day is closed', `
+    <div class="card">${table(['Student','Dates','Days','Reason','Status'], [
+      ['عدنان','10–11 Oct','2','Family visit', badge('Pending','warn')],
+      ['عائشہ خان','02 Oct','1','Fever', badge('Approved')],
+    ])}</div>`)],
+  ['timetable', '16  Timetable', app('timetable', 'Timetable', 'Class 5 A · Saturday week', `
+    <div class="card">${table(['Time','Subject','Teacher'], [
+      ['08:00','English','صائمہ اقبال'],
+      ['08:45','Mathematics','طارق ملک'],
+      ['09:30','Urdu','حنا شاہ'],
+    ])}</div>`)],
+  ['homework', '17  Homework', app('homework', 'Homework', 'Posted to a class and shown in the portal', `
+    <div class="card">${table(['Class','Subject','Work','Due'], [
+      ['Class 5 A','English','Reading and words worksheet','06 Oct'],
+      ['Class 5 A','Mathematics','Chapter review questions','07 Oct'],
+    ])}</div>`)],
+  ['assignments', '18  Assignments', app('assignments', 'Assignments', 'Students submit from the portal', `
+    <div class="card">${table(['Class','Subject','Title','Due','File'], [
+      ['Class 5 A','English','Picture story','08 Oct','story.pdf'],
+      ['Class 5 A','Computer','Subject notebook assignment','09 Oct','Choose file'],
+    ])}</div>`)],
+  ['announcements', '19  Announcements', app('announcements', 'Announcements', 'Everyone, one class, or parents', `
+    <div class="card"><h2 style="font-size:18px">Saturday is a working day</h2><p>Classes run Monday to Saturday. Parents of Class 5 should note the mid-term date sheet.</p>${badge('Class 5','blue')}</div>`)],
+  ['notifications', '20  Notifications', app('dashboard', 'Notifications', 'Unread notices from the header bell', `
+    <div class="card"><p><strong>Fee reminder</strong><br>October tuition for عائشہ خان is overdue.</p><p><strong>Leave request</strong><br>عدنان asked for 10–11 Oct.</p><button class="btn ghost">Mark all read</button></div>`)],
+  ['reports', '21  Reports', app('reports', 'Reports', 'Show on screen, download CSV, or print PDF', `
+    <div class="filters"><div class="field">Student list</div><div class="field">From</div><div class="field">To</div><div class="field">Show</div></div>
+    <div class="card">${table(['Name','ID','Class','Status'], [['عدنان','STU-00201','Class 5 A','Active'],['عائشہ خان','STU-00001','Class 1 A','Active']])}<div class="row" style="margin-top:10px"><button class="btn">Excel</button><button class="btn ghost">Print PDF</button></div></div>`)],
+  ['portal', '22  Student portal', `<div class="shell"><aside class="side"><div class="logo">CMS</div><div class="who"><strong>عدنان</strong><span>Student</span></div><div class="sec">Study</div><div class="link on">Dashboard</div><div class="link">Attendance</div><div class="link">Fees</div><div class="link">Results</div><div class="sec">Work</div><div class="link">Timetable</div><div class="link">Homework</div><div class="link">Assignments</div></aside><section>${topbar('My work')}<div class="page"><div class="card hero"><div class="face">ع</div><div><h2 style="font-size:22px">عدنان</h2><p class="sub">STU-00201 · Class 5 — A</p></div></div><div class="kpis" style="grid-template-columns:repeat(4,1fr)">${[['Attendance','94%'],['Present','86'],['Pending fee','PKR 0'],['Leave left','18']].map(([a,b]) => `<article class="card kpi"><span>${a}</span><strong>${b}</strong></article>`).join('')}</div></div></section></div>`],
+  ['profile', '23  Profile', app('dashboard', 'Profile', 'Account, photo, and password', `
+    <div class="card hero"><div class="face">ع</div><div><h2 style="font-size:22px">عدنان</h2>${badge('Student','blue')} ${badge('Registered')}<p>adnan@smartcollege.test<br>Face · Saved</p><button class="btn">Edit profile</button> <button class="btn ghost">Change password</button></div></div>`)],
+  ['settings', '24  Settings', app('settings', 'Settings', 'College, attendance, fees, users, backup', `
+    <div class="tabs"><span class="on">General</span><span>Appearance</span><span>Attendance</span><span>Fees</span><span>Language</span><span>Backup</span><span>Audit</span></div>
+    <div class="card form"><label>College name<input value="Crescent Model School"></label><label>Short name<input value="CMS"></label><label class="wide">Address<input value="14-B Gulberg III, Lahore"></label><label>Logo<input value="Choose file"></label><div><button class="btn">Save changes</button></div></div>`)],
+  ['urdu', '25  Urdu', `<div class="shell rtl"><aside class="side"><div class="logo">سی ایم ایس</div><div class="who"><strong>کریسنٹ ماڈل اسکول</strong><span>ایڈمن</span></div><div class="sec">تعلیم</div><div class="link on">طلبہ</div><div class="link">اساتذہ</div><div class="link">حاضری</div></aside><section><header class="top"><div class="search">تلاش</div><div class="pill"><span>انگریزی</span><b>اردو</b></div><div class="avatar">ا</div></header><div class="page"><h2>طلبہ</h2><p class="sub">نام، شناخت، اور چہرہ</p><div class="card">${table(['تصویر','نام','شناخت','چہرہ'], [['<div class="photo">ع</div>','عدنان','STU-00201', badge('رجسٹرڈ')],['<div class="photo">م</div>','محمد خان','STU-00002', badge('رجسٹرڈ')]])}</div></div></section></div>`],
+];
+
+const pages = document.getElementById('pages');
+const board = document.getElementById('board');
+const label = document.getElementById('label');
+let group = '';
+screens.forEach(([id, name, html], index) => {
+  const section = name.slice(0, 2);
+  const button = document.createElement('button');
+  button.textContent = name.replace(/^\d+\s+/, '');
+  button.dataset.id = id;
+  if (index === 0) button.className = 'on';
+  button.onclick = () => show(id);
+  pages.appendChild(button);
+});
+function show(id) {
+  const screen = screens.find((item) => item[0] === id);
+  [...pages.querySelectorAll('button')].forEach((button) => button.classList.toggle('on', button.dataset.id === id));
+  label.textContent = 'Frame  ·  ' + screen[1] + '  ·  1280 × 800';
+  board.innerHTML = screen[2];
+}
+show('system');
+</script>
+</body>
+</html>

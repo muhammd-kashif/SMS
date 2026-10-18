@@ -1,0 +1,70 @@
+# ==========================================================================
+# Laravel API - Hostinger shared hosting
+# REPLACES the file at:
+#   /home/u652379655/domains/digitalsafar.tech/public_html/smsback/public/.htaccess
+#
+# The only additions over Laravel's stock file are:
+#   * the /storage/ -> ../storage/app/public/ rewrite (php artisan storage:link
+#     does not work on Hostinger shared hosting, and app/Support/Files.php builds
+#     every upload URL as APP_URL . '/storage/' . $path)
+#   * HTTPS redirect, dotfile blocking and .env protection
+# ==========================================================================
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews -Indexes
+    </IfModule>
+
+    # ---------- HTTPS ----------
+    RewriteCond %{HTTPS} !=on
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # ---------- Serve uploaded files ----------
+    # Must sit BEFORE the front-controller rule below.
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI} ^/storage/
+    RewriteRule ^/storage/(.*)$ ../storage/app/public/$1 [L]
+
+    # ---------- Pass the Authorization header to PHP ----------
+    # Required for Laravel Sanctum Bearer tokens.
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+    # ---------- Pass the X-XSRF-Token header to PHP ----------
+    RewriteCond %{HTTP:x-xsrf-token} .
+    RewriteRule .* - [E=HTTP_X_XSRF_TOKEN:%{HTTP:X-XSRF-Token}]
+
+    # ---------- Redirect trailing slashes (except folders) ----------
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
+    # ---------- Send everything else to index.php ----------
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+# ---------- Never serve dotfiles: .env, .git, .htpasswd ----------
+<FilesMatch "^\.|\.(env|log|ini|bak|sql|md|sh|json|lock)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# ---------- No directory listing ----------
+<IfModule mod_autoindex.c>
+    Options -Indexes
+</IfModule>
+
+# ---------- Sensible limits for uploads (homework, receipts, photos) ----------
+<IfModule mod_php.c>
+    php_value upload_max_filesize 12M
+    php_value post_max_size 16M
+    php_value memory_limit 256M
+    php_value max_execution_time 120
+</IfModule>

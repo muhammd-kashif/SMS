@@ -1,0 +1,32 @@
+name: smart_college
+description: Smart College app built from the project Figma design.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  http: ^1.5.0
+  shared_preferences: ^2.5.3
+  camera: ^0.11.2
+  permission_handler: ^11.4.0
+  intl: any
+  pdf: any
+  printing: any
+  share_plus: any
+  excel: any
+  path_provider: any
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/logo.png

@@ -1,0 +1,414 @@
+SMART COLLEGE MANAGEMENT SYSTEM
+Feature documentation
+================================
+
+This file describes the features already built in this project.
+The school name in the live data is Crescent Model School.
+
+The system has four parts:
+
+  1. React website (frontend) at http://127.0.0.1:5173
+  2. Laravel API (backend) at http://127.0.0.1:8000
+  3. MySQL / MariaDB database
+  4. Python face service at http://127.0.0.1:8001
+
+The face service uses OpenCV YuNet to find a face and SFace to recognize it.
+
+
+HOW TO START
+------------
+
+Start MySQL from XAMPP, then open three terminals:
+
+  cd E:\Mernprojects\SMS\backend
+  php artisan serve --host=127.0.0.1 --port=8000
+
+  cd E:\Mernprojects\SMS\frontend
+  npm run dev
+
+  cd E:\Mernprojects\SMS\face-service
+  python -m uvicorn app:app --host 127.0.0.1 --port 8001
+
+Open http://127.0.0.1:5173
+
+To reload the demo school, run this inside the backend folder:
+
+  php artisan db:seed --force
+
+Seeding replaces school records and logins. College settings such as the logo are kept.
+
+
+DEMO LOGINS
+-----------
+
+Every demo account uses the password College@123
+
+  Admin       admin@smartcollege.test
+  Teacher     teacher@smartcollege.test
+  Accountant  accountant@smartcollege.test
+  Student     student@smartcollege.test
+  Parent      parent@smartcollege.test
+
+The student login is Ayesha Malik, Class 5 A, roll 05A-01.
+The parent login can also open her brother Hassan Malik.
+
+
+ROLES
+-----
+
+Admin
+  Full access. Can add and edit students, teachers, classes, fees, exams,
+  attendance, faces, settings, users, backups, and the audit log.
+
+Accountant
+  Dashboard, fees, reports, and notifications.
+
+Teacher
+  Dashboard, students in the teacher's assigned classes, attendance,
+  exams and marks, leaves, timetable, homework, assignments, and announcements.
+  A teacher sees only the classes and sections assigned to that teacher.
+
+Student
+  Own portal: attendance, fees, exams, results, leaves, timetable, homework,
+  assignments, announcements, notifications, and profile.
+
+Parent
+  The same portal for each linked child, plus a My children page.
+
+
+LANGUAGE
+--------
+
+The header has two language buttons.
+
+  English mode shows English.
+  Urdu mode shows Urdu. The English button itself reads انگریزی so it can be switched back.
+
+Urdu mode covers the menus, buttons, messages, and text that comes from the database,
+including names, class names, subjects, addresses, and designations.
+Personal names use a fixed Urdu spelling list. Example: Adnan is written عدنان.
+Letters that are not in that list are sounded out.
+Emails, phone numbers, and ID codes such as STU-00001 and TCH-0001 stay as they are stored.
+
+Looking at a page in Urdu does not rewrite the English saved in the database.
+The language choice is saved on the user account.
+
+
+DASHBOARD
+---------
+
+Admin, accountant, and teacher dashboards show:
+
+  Today's present, absent, late, and leave counts
+  Active students
+  A 7-day attendance trend
+  Fee collected today, this month, and still pending
+  Number of fee defaulters
+  Students per class
+  Upcoming exams
+  Recent audit activity
+
+Student and parent accounts open their portal instead of this dashboard.
+
+
+STUDENTS
+--------
+
+  Search and filter the student list
+  Add, edit, and print a student profile
+  Student ID, roll number, class, section, session
+  Father name, date of birth, gender, phone, parent phone, address
+  Admission date, leave allowance, and active or inactive status
+  Profile photo
+  Guardian details
+  Tabs for overview, attendance, fees, exams, leaves, and documents
+  The saved face photo appears on the list and on the profile
+  Register or update that student's face from the profile
+  Withdraw a student. The record stays, and the account cannot sign in.
+
+Demo data has 200 students in Class 1 to Class 10, sections A and B.
+
+
+TEACHERS
+--------
+
+  Search by name, code, phone, designation, subject, or status
+  Add and edit a teacher
+  Employee code, gender, qualification, designation, monthly salary
+  Joining date and active or inactive status
+  Class, section, and subject assignments
+  The saved face photo appears in the teacher list and in the teacher details
+  An admin can open face registration for that teacher
+
+Demo data has 15 teachers. One teacher is inactive.
+
+
+CLASSES AND SUBJECTS
+--------------------
+
+From Classes, an admin can manage:
+
+  Classes
+  Sections inside a class
+  Subjects
+  Academic sessions
+
+These records are used by students, the timetable, exams, and fees.
+
+
+FACE REGISTRATION
+-----------------
+
+Open Face registration, choose Student or Teacher, then choose the person.
+
+The camera takes five views:
+
+  Look straight
+  Turn slightly left
+  Turn slightly right
+  Tilt slightly up
+  Tilt slightly down
+
+The head must move between samples. A still photograph is rejected.
+Only one person may be in front of the camera.
+After the five views, press Save this face. Nothing is stored before that button.
+
+The same face cannot be saved on a second account.
+If it already belongs to someone, registration is rejected and that person's name is shown.
+The existing face is not replaced.
+
+Only an administrator can replace a face that is already registered.
+A teacher face can be saved only by an admin.
+
+The face is stored as a numeric signature, plus a preview photo.
+That preview is shown on the student, teacher, and user profile.
+
+
+FACE ATTENDANCE
+---------------
+
+Open Face attendance and let the person stand inside the oval.
+
+The scan marks attendance only when the live face closely matches one saved face.
+A different person is left unrecognized. Their scan does not open someone else's
+record and does not mark someone else's attendance.
+
+A second scan of the same person on the same day does not create a second record.
+It shows that attendance was already marked.
+
+Arrival at or before Present until (default 08:15) is Present.
+A later arrival is Late.
+
+There is also a verify mode: choose the person first. Attendance is marked only
+if the live face matches that selected person.
+
+If the internet drops, the scan stays in the browser. Use Sync saved scans
+when the server is reachable. The original time is kept, and the same scan
+is not inserted twice.
+
+The match must reach a score of 0.55. A weaker likeness is refused, so one
+saved face is not treated as every other face.
+
+
+ATTENDANCE RECORDS
+------------------
+
+  Student attendance and teacher attendance, by month
+  Month calendar for one person
+  Manual attendance entry
+  Close the day: anyone still unmarked becomes Absent, or Leave if an approved
+    leave covers that date
+  Download and print attendance as PDF
+  Each person can open My attendance
+
+Statuses are Present, Absent, Late, and Leave.
+
+
+FEES
+----
+
+  Fee structure
+  Create a fee for one student
+  Assign a fee to a whole class
+  Titles such as admission fee and monthly tuition
+  Due date, amount, paid amount, pending amount
+  Status: paid, partial, pending, or overdue
+  Collect a payment by cash, bank, online, or other
+  Print a fee voucher
+  Print a receipt. The amount is also written in words.
+  Payment history and receipts
+  Reverse a posted payment
+  Pending fees
+  Defaulter list
+  Send fee reminders
+  Grace days, late-fee amount, bank name, and bank account are set in Settings
+  A daily task can add the late fee and send reminders
+
+Students and parents see their own fees, vouchers, and receipts in the portal.
+
+
+EXAMS AND RESULTS
+-----------------
+
+  Create an exam for a class and section
+  Exam types include monthly tests, mid-term, and final term
+  Date sheet: subject, date, start time, and end time
+  Enter marks for each student and subject
+  Publish an exam. Students and parents see results only after it is published
+  Result list with total, percentage, grade, and pass or fail
+  Download a report card as PDF
+
+Demo data includes mid-term and September monthly results, plus the February 2027 date sheet.
+
+
+LEAVES
+------
+
+  A student, parent, or staff member can submit a leave request
+  Reason and dates
+  An authorized user approves or rejects the request
+  Approved leave counts toward the student's leave allowance
+  An approved leave on a closed attendance day is marked Leave, not Absent
+
+
+TIMETABLE, HOMEWORK, AND ASSIGNMENTS
+------------------------------------
+
+Timetable
+  Slots by day, class, section, subject, teacher, and time.
+
+Homework
+  Post homework for a class. Students see it in the portal.
+
+Assignments
+  Post an assignment with a file if needed.
+  A student can submit work from the portal.
+
+Announcements
+  Post a notice for everyone, a class, a section, or parents.
+  Students and parents see the notices meant for them.
+
+
+NOTIFICATIONS
+-------------
+
+The bell in the header shows unread notices.
+A notice can be marked read, all notices can be marked read, and one notice
+can be removed.
+
+Settings can turn email and push notification flags on or off, and can store
+an SMS webhook and a WhatsApp webhook.
+
+
+REPORTS
+-------
+
+Choose a report, a date range, then Show.
+
+  Student list
+  Attendance
+  Fee collection
+  Payment history
+  Defaulters
+  Exam schedule
+  Leaves
+
+The same report can be downloaded as CSV (Excel) or printed as PDF.
+
+
+STUDENT AND PARENT PORTAL
+-------------------------
+
+  Profile photo, including the saved face when one exists
+  Attendance percentage and month calendar
+  Fees, payments, and receipts
+  Exam date sheet
+  Published results and report card PDF
+  Leave requests
+  Timetable
+  Homework
+  Assignments and submission
+  Announcements
+  Notifications
+  Own profile and password
+
+A parent with more than one child can switch children.
+
+
+PROFILE
+-------
+
+Every signed-in user can:
+
+  See their name, email, phone, username, and role
+  See the saved face when this account is a student or teacher
+  Edit name, phone, and profile photo
+  Change password
+  Sign out
+
+
+SETTINGS
+--------
+
+Only an admin opens Settings.
+
+  General: college name, short name, phone, email, website, address, logo, favicon
+  Appearance: theme colors, light or dark, and button shape
+  Academic: classes, sections, subjects, and sessions
+  Attendance: face match strictness, Present until, Late until, leave allowance, working days
+  Fees: grace days, late fee, bank name, bank account, reminder days, payment methods
+  Notifications: email, push, SMS webhook, WhatsApp webhook
+  Language: default language for new users
+  Security: minimum password length, and user accounts
+  Backup: create, download, and restore a database backup
+  Audit: who changed what, and when
+
+Users that can be created: admin, accountant, teacher, student, and parent.
+Restoring a backup replaces the current database.
+
+
+SEARCH, PRINT, AND FILES
+------------------------
+
+  Pages have search and filters
+  Lists move between pages
+  Many lists and profiles can be printed or saved as PDF
+  Photos, logos, homework files, and assignment files can be uploaded
+  The file button reads Choose file / No file chosen, and those words follow the language
+
+
+FLUTTER APP
+-----------
+
+The mobile and web app that follows the Figma frames is in:
+
+  smart_college\
+
+It signs in with POST /api/login and loads students, teachers, classes,
+timetable, attendance, fees, payments, exams, results, leaves, homework,
+assignments, announcements, notifications, reports, the student portal,
+and settings from the Laravel API. Face photos are still captured on the
+web desk. See smart_college\README.md for how to run it.
+
+
+FIGMA DESIGN
+------------
+
+The screen design for these features is in two files:
+
+  design\smart-college-figma.html
+  design\FIGMA-DESIGN.txt
+
+Open the HTML file in a browser. The left list is every frame: login, dashboard,
+students, student profile, teachers, classes, face attendance, face registration,
+attendance, fees, exams, results, leaves, timetable, homework, assignments,
+announcements, notifications, reports, portal, profile, settings, and Urdu.
+The text file explains each frame, the colors, the type, and how the frames link.
+
+
+WHAT THIS PROJECT DOES NOT INCLUDE
+----------------------------------
+
+There is no library or book-issue module.
+Seeded face rows are placeholders. A live camera matches only a face that was
+saved from Face registration with the Save this face button.

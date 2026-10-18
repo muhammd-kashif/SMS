@@ -1,0 +1,111 @@
+# =============================================================================
+# Smart College Management System — root .gitignore
+# =============================================================================
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+.env.production
+.env.production.local
+
+# IDE / editors
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+.sublime-workspace
+.sublime-project
+
+# Flutter / Dart (smart_college)
+.dart_tool/
+.packages
+pubspec.lock
+build/
+*.dart_tool
+.android/
+.flutter-plugins
+.flutter-plugins-dependencies
+.metadata
+
+# Android
+smart_college/android/app/build/
+smart_college/android/build/
+smart_college/android/.gradle/
+smart_college/android/gradlew
+smart_college/android/gradlew.bat
+smart_college/android/local.properties
+
+# Node / React (frontend)
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+frontend/.vite/
+frontend/.next/
+frontend/package-lock.json
+frontend/.eslintcache
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+.env
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.egg-info/
+.eggs/
+fastapi-backend/venv/
+fastapi-backend/.venv/
+
+# Laravel / PHP
+vendor/
+fastapi-backend/vendor/
+backend/vendor/
+*.key
+storage/app/backups/*.zip
+storage/app/backups/*.sql
+
+# Java / Gradle
+.gradle/
+build/
+
+# Database
+*.sqlite3
+*.sqlite
+*.db
+
+# Compressed / backups
+*.zip
+*.tar.gz
+*.rar
+*.7z
+smsback-public.zip
+sms-react.zip
+
+# ONNX model binaries (downloaded at runtime by face-service)
+*.onnx
+
+# Cache / temp
+.cache/
+*.dill
+*.track.dill
+last_build_run.json
+tmp/
+temp/
+*.log
+
+# Misc
+package_graph.json

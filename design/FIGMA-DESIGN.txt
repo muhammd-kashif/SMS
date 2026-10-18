@@ -1,0 +1,271 @@
+SMART COLLEGE
+Figma design for the features already in the project
+====================================================
+
+Open the visual board in a browser:
+
+  E:\Mernprojects\SMS\design\smart-college-figma.html
+
+That file is the screen design. Each item in the left list is one Figma frame,
+1280 by 800. The colors, type, and layout follow the running app.
+
+This text file is the feature note for each frame. Use it as the Figma file
+documentation: one Figma page per feature, one or more frames on that page.
+
+
+FILE SETUP IN FIGMA
+-------------------
+
+File name: Smart College
+
+Pages, in this order:
+
+  00 Cover and design system
+  01 Login
+  02 Dashboard
+  03 Students
+  04 Teachers
+  05 Classes
+  06 Face attendance
+  07 Face registration
+  08 Attendance records
+  09 Fees
+  10 Exams and results
+  11 Leaves
+  12 Academics
+  13 Announcements and notifications
+  14 Reports
+  15 Portal and profile
+  16 Settings
+  17 Urdu
+
+Frame size: 1280 x 800 for desktop. Add a 390 x 844 frame later only if a
+phone layout is needed. The current app is a desktop layout with a sidebar.
+
+Font styles:
+  Display    Fraunces 52 / 640        login title only
+  Title      Source Sans 3 26 / 700   page title
+  Heading    Source Sans 3 18 / 700   card title
+  Body       Source Sans 3 14 / 400
+  Label      Source Sans 3 12 / 600
+  Urdu       Noto Nastaliq Urdu 16    used when language is Urdu
+
+Color styles:
+  Sidebar    #0E2A4A
+  Primary    #1B4F9C
+  Secondary  #F39200
+  Accent     #F5A623
+  Paper      #F4F7FB
+  Card       #FFFFFF
+  Line       #E6EDF5
+  Ink        #0F172A
+  Muted      #64748B
+  Success    #166534
+  Warning    #A16207
+  Danger     #9F1239
+  Header     #FFFDF8
+
+Components:
+  Button / Primary, Secondary, Ghost
+  Badge / Active, Registered, Missing, Present, Late, Absent, Leave, Paid, Overdue
+  Input, Select, Search
+  Card, KPI, Data table, Tabs, Sidebar item, Top bar, Avatar, Face oval
+  Language switch: English pill is orange in English mode. In Urdu mode the
+  orange pill is اردو and the other label is انگریزی.
+
+Shared app chrome, every signed-in frame:
+  Left sidebar 232 px, navy, college logo, role pill, grouped links.
+  Top bar: search, language switch, notification bell, avatar.
+  Page title, one-line description, then the feature content.
+  Urdu frames flip the sidebar to the right.
+
+
+00  DESIGN SYSTEM
+Feature: the visual language used by every screen.
+Frame: 00 Design system
+Shows the color swatches, both buttons, and the status badges.
+Who uses it: designer and developer. It is not a screen in the app.
+
+
+01  LOGIN
+Feature: sign in for admin, teacher, accountant, student, and parent.
+Frame: 01 Login
+Left panel is the college brand and three promises: face attendance, fees, and both languages.
+Right panel is email, password, and Sign in.
+Demo password is shown only on the local design, not as a production requirement.
+States: empty fields, wrong password, signed-in redirect to the dashboard or the portal.
+
+
+02  DASHBOARD
+Feature: today's school picture for admin, accountant, and teacher.
+Frame: 02 Dashboard
+Quick actions: Add student, Register face, Start attendance, Collect fee, Create exam, Send announcement.
+The actions a person sees depend on their role.
+KPI row: students, teachers, present today, late today, fee pending, upcoming exams.
+Two charts: 7-day attendance, and fee collection.
+Below the charts: class-wise attendance and upcoming exams.
+Student and parent accounts do not see this page. They open the portal.
+
+
+03  STUDENTS
+Feature: the student register.
+Frames:
+  03 Students          list, search, class, section, status
+  04 Student profile   photo is the saved face, tabs for overview, attendance, fees, exams, leave, documents
+  05 Add student       name, email, roll, class, section, father, address, photo
+A row shows the face photo, Urdu or English name according to the language, student ID, roll, class, face status, and account status.
+Register face and Update face sit on the profile.
+Inactive students stay on record and cannot sign in.
+Teachers see only students in their assigned classes.
+
+
+04  TEACHERS
+Feature: staff records.
+Frame: 06 Teachers
+Columns: face photo, name, employee code, designation, classes and subjects, face status, active switch.
+The detail dialog shows the saved face, qualification, salary, joining date, and assignments.
+Only an admin adds or edits a teacher, and only an admin can save a teacher face.
+
+
+05  CLASSES
+Feature: academic structure.
+Frame: 07 Classes
+Classes, sections, subjects, and the academic session.
+These records feed students, the timetable, exams, and class fee assignment.
+
+
+06  FACE ATTENDANCE
+Feature: mark attendance from the live camera.
+Frame: 08 Face attendance
+Left: camera with an oval guide and a status line.
+Right: today's counts and the person just verified, with their saved face and name.
+A match marks Present at or before 08:15, and Late after that.
+The same person is not marked twice on the same day.
+A face that does not match a saved face stays unrecognized. Another person's record is not opened.
+Verify mode asks for the person first and accepts only that person's face.
+If the network drops, the scan stays on the device until Sync saved scans.
+
+
+07  FACE REGISTRATION
+Feature: save one face to one student or teacher.
+Frame: 09 Face registration
+Choose Student or Teacher, then the person.
+Five steps: straight, left, right, up, down. The head must move. One person only.
+Save this face stores the face. Nothing is stored before that button.
+The same face on a second account is rejected, and the existing account name is shown.
+The preview then appears on that person's profile, list, portal, and header.
+
+
+08  ATTENDANCE RECORDS
+Feature: the month register and day close.
+Frame: 10 Attendance
+Student attendance and teacher attendance.
+Month grid: Present, Late, Absent, Leave.
+Close the day fills unmarked people as Absent, or Leave when an approved leave covers the date.
+Manual entry exists for a day the camera was not used.
+My attendance is the same month view for the signed-in person.
+PDF download and print use this same table.
+
+
+09  FEES
+Feature: vouchers, collection, receipts, and defaulters.
+Frames:
+  11 Fees          student fees table, total, paid, pending
+  12 Collect fee   student, voucher, amount, cash / bank / online / other
+Other fee frames use the same page with these tabs:
+  Structure, Student fees, Collect, Voucher, Payments, Receipts, Pending, Defaulters
+Voucher and receipt are print layouts with the college name, student, amount, and amount in words.
+Overdue rows use the danger badge.
+Grace days, late fee, and the bank account are set in Settings, not on this screen.
+Students and parents see only their own fees.
+
+
+10  EXAMS AND RESULTS
+Feature: date sheet, marks, publish, report card.
+Frames:
+  13 Exams     list with publish state
+  14 Results   obtained marks, percent, grade, pass or fail
+Tabs on the same page: Exams, Schedule, Marks, Results.
+A schedule row is subject, date, start, and end.
+Marks are entered per student and subject.
+Families see results and the report-card PDF only after Publish.
+
+
+11  LEAVES
+Feature: request and review leave.
+Frame: 15 Leaves
+Columns: person, dates, days, reason, status.
+Status badges: Pending, Approved, Rejected.
+An approved leave on a closed day is marked Leave on the attendance grid.
+The student's remaining allowance is on the student profile and the portal.
+
+
+12  ACADEMICS
+Feature: timetable, homework, and assignments.
+Frames:
+  16 Timetable     day, time, subject, teacher for one class
+  17 Homework      class, subject, work, due date
+  18 Assignments   class, subject, title, due date, file
+Students open the same items in the portal and can submit an assignment file.
+
+
+13  ANNOUNCEMENTS AND NOTIFICATIONS
+Feature: notices.
+Frames:
+  19 Announcements    title, body, audience (everyone, class, section, or parents)
+  20 Notifications    bell list, mark read, mark all read, remove
+Email, push, SMS, and WhatsApp switches live in Settings. The screen itself is the in-app list.
+
+
+14  REPORTS
+Feature: lists for office use.
+Frame: 21 Reports
+Report choices: student list, attendance, fee collection, payment history, defaulters, exam schedule, leaves.
+Filters: from date and to date.
+Actions: Show, Excel, Print PDF.
+
+
+15  PORTAL AND PROFILE
+Feature: what a student or parent sees, and every user's own account.
+Frames:
+  22 Student portal   saved face, attendance percent, fees, results, timetable, homework, assignments
+  23 Profile          face, name, email, edit profile, change password, logout
+A parent frame is the same portal plus a child switcher and a My children list.
+The header avatar uses the saved face when that account has one.
+
+
+16  SETTINGS
+Feature: college setup, only for an admin.
+Frame: 24 Settings
+Tabs: General, Appearance, Academic, Attendance, Fees, Notifications, Language, Security, Backup, Audit.
+General: college name, short name, phone, email, website, address, logo, favicon.
+In Urdu mode those name and address fields display in Urdu and still save the stored English unless the admin edits them.
+Attendance: how strict a face match must be, Present until, Late until, leave allowance, working days.
+Backup: create, download, restore. Restore replaces the database.
+Audit: who did what, and when.
+Security: minimum password length and user accounts for all five roles.
+
+
+17  URDU
+Feature: the same screens in Urdu, right to left.
+Frame: 25 Urdu
+Sidebar on the right. Orange language pill reads اردو. The other pill reads انگریزی.
+Names use the standard Urdu spelling. Adnan is عدنان. IDs such as STU-00201 stay in Latin.
+Every English frame above has this Urdu twin. Build one Urdu component variant rather than a second set of layouts.
+
+
+PROTOTYPE LINKS
+---------------
+
+Login, Sign in            -> Dashboard for staff, Portal for student and parent
+Dashboard, Add student    -> Add student
+Dashboard, Start attendance -> Face attendance
+Dashboard, Register face  -> Face registration
+Students, a name          -> Student profile
+Student profile, Register face -> Face registration for that person
+Face attendance, verified person -> that person's profile
+Fees, Collect             -> Collect fee, then receipt
+Exams, a published exam   -> Results and report card
+Portal cards              -> the matching portal tab
+Header avatar             -> Profile
+Language, اردو            -> the Urdu variant of the current frame
