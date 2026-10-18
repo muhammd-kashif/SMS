@@ -2,6 +2,14 @@
 
 React admin, student, teacher, and parent portals, a Laravel API, MySQL, and a Python face-recognition service.
 
+## Development Progress
+
+- **June 2026** — Project planning, database schema design, and initial module setup.
+- **July 2026** — Frontend React portals and Laravel API development.
+- **August 2026** — Face recognition service and Flutter mobile app integration.
+- **September 2026** — Testing, bug fixes, and deployment configuration.
+- **October 2026** — Final build, documentation, and GitHub upload.
+
 This machine has PHP 8.2, so the API is Laravel 12 with Sanctum. Laravel 13 needs PHP 8.3 or newer. The same application structure moves to Laravel 13 after that PHP upgrade. Local XAMPP provides MariaDB 10.4, which is compatible with the MySQL 8 schema used in production.
 
 ## Run locally
